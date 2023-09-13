@@ -18,6 +18,11 @@ class TicketSeller(
         /**
          * TicketSeller는 더이상 Audience의 bag에 관심을 둘 필요가 없다. 따라서 Audience의 인터페이스에만 의존할 수 있도록 한다.
          */
-        ticketOffice.plusAmount(audience.buy(ticketOffice.getTicket()))
+//        ticketOffice.plusAmount(audience.buy(ticketOffice.getTicket()))
+        /**
+         * TicketSeller가 TicketOffice에 마음대로 드나들며 티켓을 판매하는 행위를 금지
+         * TickerOffice에 티켓판매에 대한 자율과 책임을 주어 TicketOffice의 구현이 아닌 인터페이스에만 의존하게 변경.
+         */
+        ticketOffice.sellTicketTo(audience)
     }
 }
