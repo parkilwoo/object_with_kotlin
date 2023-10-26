@@ -19,7 +19,7 @@ class Main {
                     PeriodCondition(DayOfWeek.MONDAY, LocalTime.of(10, 0), LocalTime.of(11, 59)),
                     PeriodCondition(DayOfWeek.THURSDAY, LocalTime.of(10, 0), LocalTime.of(20, 59))
                     )
-                )
+            )
 
             // 비율 할인 정책이 들어간 영화
             val titanic: Movie = Movie("타이타닉",
@@ -30,14 +30,23 @@ class Main {
                     SequenceCondition(2),
                     PeriodCondition(DayOfWeek.THURSDAY, LocalTime.of(10, 0), LocalTime.of(13, 59))
                     )
-                )
+            )
 
             // 할인 정책이 없는 영화
             val starWars: Movie = Movie("스타워즈",
                 Duration.ofMinutes(210),
                 Money.wons(10000),
                 NoneDiscountPolicy()
+            )
+
+            // 실행 시점에서 할인 정책이 변경될 수 있도록 DiscountPolicy 인스턴스를 연결한다.
+            avatar.changeDiscountPolicy(
+                PercentDiscountPolicy(0.1,
+                    PeriodCondition(DayOfWeek.TUESDAY, LocalTime.of(14, 0), LocalTime.of(16, 59)),
+                    SequenceCondition(2),
+                    PeriodCondition(DayOfWeek.THURSDAY, LocalTime.of(10, 0), LocalTime.of(13, 59))
                 )
+            )
         }
     }
 }

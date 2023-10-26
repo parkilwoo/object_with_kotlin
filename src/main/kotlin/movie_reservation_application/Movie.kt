@@ -1,5 +1,6 @@
 package movie_reservation_application
 
+import movie_reservation_application.discount.DefaultDiscountPolicy
 import movie_reservation_application.discount.DiscountPolicy
 import java.time.Duration
 
@@ -11,7 +12,7 @@ class Movie(
     private val title: String,
     private val runningTime: Duration,
     private val fee: Money,
-    private val discountPolicy: DiscountPolicy
+    private var discountPolicy: DiscountPolicy
 ) {
     fun getFee(): Money {
         return fee
@@ -22,5 +23,13 @@ class Movie(
      */
     fun calculateMovieFee(screening: Screening): Money {
         return fee.minus(discountPolicy.calculateDiscountAmount(screening))
+    }
+
+    /**
+     * 합성(Composition)을 이용하여서 객체의 변경이 간단하게 가능하다.
+     * 금액 할인 정책이 적용된 영화에서 다른 할인 정책으로 변경한다.
+     */
+    fun changeDiscountPolicy(discountPolicy: DiscountPolicy) {
+        this.discountPolicy = discountPolicy
     }
 }
